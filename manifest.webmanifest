@@ -1,8 +1,8 @@
 {
-  "name": "Food cost restaurant",
-  "short_name": "Food cost",
-  "description": "Food cost, cheltuieli și analiză pentru restaurante",
-  "lang": "ro",
+  "name": "Margo – Food cost",
+  "short_name": "Margo",
+  "description": "Wareneinsatz, Kosten und Analyse für Restaurants · Food cost and expenses · Food cost și cheltuieli",
+  "lang": "de",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

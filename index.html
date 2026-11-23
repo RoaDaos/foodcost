@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Food cost restaurant</title>
+<title>Margo · Food cost</title>
 <meta name="theme-color" content="#c83a25">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
@@ -14,8 +14,8 @@
 /* VOICE: practical kitchen-office tool, direct, no fluff
    IDEA: the chef's order ticket on the pass: one big number shouting where money goes
    PICTURE: tomato-red band with the monthly leak in huge condensed figures, bars vs. industry benchmarks below
-   COLOUR and TYPE: tomato red dominant, warm paper ground, saffron accent; Barlow Condensed for figures, Barlow for text
-   LAYOUT: result band on top, sticky tabs, one calm column of inputs, cards for recipes */
+   COLOUR and TYPE: tomato red dominant, warm paper ground, ink for the cost slice; Barlow Condensed for figures, Barlow for text
+   LAYOUT: brand bar, result band, sticky tabs, one calm column of inputs, cards for recipes */
 :root{color-scheme:light dark;
 --bg:light-dark(#f6f2ea,#151311);--paper:light-dark(#fffdf8,#201c19);--ink:light-dark(#1d1a17,#f1ece4);
 --mute:light-dark(#6b635a,#a89f94);--line:light-dark(#e3dbcf,#3a342e);--red:light-dark(#c83a25,#e0553d);
@@ -27,6 +27,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Barlow,system
 .wrap{max-width:1240px;margin:0 auto}
 h1,h2,h3,.fig-n{font-family:"Barlow Condensed",Barlow,sans-serif;line-height:1.05;text-wrap:balance;margin:0}
 h1{font-size:clamp(32px,5vw,48px)}h2{font-size:32px;margin-bottom:16px}h3{font-size:22px}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px max(5vw,16px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo svg{width:40px;height:40px;flex:none}
+.logo b{font:700 28px/1 "Barlow Condensed",sans-serif;letter-spacing:.01em}
+.logo small{display:block;font-size:13px;color:var(--mute);line-height:1.2}
+.lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.lang button{background:transparent;color:var(--mute);border:0;border-radius:0;min-width:48px;padding:8px 10px}
+.lang button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
 .top{padding-bottom:20px}.top p{margin:8px 0 0;color:var(--mute);max-width:60ch}
 .note{font-size:13px;color:var(--mute)}
 .hero{background:var(--red);color:#fff}
@@ -80,12 +88,12 @@ button.ghost,.add,.x{background:transparent;color:var(--ink);border-color:var(--
 table{border-collapse:collapse;width:100%;margin-bottom:28px}
 th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}th{font-size:13px;color:var(--mute);font-weight:500}
 td.n,th.n{text-align:right;white-space:nowrap}
-.tag{font-size:13px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
 textarea{min-height:140px;font-size:14px}
 pre,.scroll{overflow-x:auto}code{overflow-wrap:anywhere}html{scroll-padding-top:72px}
 @media(max-width:860px){.hwrap,.grid2{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){
+.logo small{display:none}
 .bar{grid-template-columns:minmax(0,1fr) auto}.bar .tr{grid-column:1/-1;grid-row:2}
 .rf{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.rf label:first-child{grid-column:1/-1}
 .irow{grid-template-columns:repeat(3,minmax(0,1fr)) 44px;padding-bottom:10px;border-bottom:1px solid var(--line)}
@@ -97,43 +105,49 @@ table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-bl
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
 <body>
+<div class="brand">
+<a class="logo" href="#analiza" aria-label="Margo">
+<svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#c83a25"/><g transform="translate(-9 7)"><path d="M256 256 L398.66 302.35 A150 150 0 1 1 256 106 Z" fill="#fffdf8"/><path d="M362.52 290.61 A112 112 0 1 1 256 144" fill="none" stroke="#e8d6cb" stroke-width="5"/><path transform="translate(17.8 -12.9)" d="M256 256 L256 106 A150 150 0 0 1 398.66 302.35 Z" fill="#1d1a17"/></g></svg>
+<span><b>Margo</b><small data-t="tag"></small></span></a>
+<div class="lang" role="group" aria-label="Language"><button data-lang="de">DE</button><button data-lang="en">EN</button><button data-lang="ro">RO</button></div>
+</div>
 <header class="band top"><div class="wrap">
-<h1>Food cost și cheltuieli restaurant</h1>
-<p>Bagi costurile lunii și rețetele, iar aplicația arată unde se duc banii față de reperele din branșă și ce poți face.</p>
-<p class="note">Pornește cu date de exemplu. Înlocuiește-le cu ale tale; se salvează pe acest dispozitiv.</p>
+<h1 data-t="h1"></h1>
+<p data-t="sub"></p>
+<p class="note" data-t="note"></p>
 </div></header>
 <section class="band hero" id="hero" aria-live="polite"></section>
-<nav class="tabs" aria-label="Secțiuni">
-<a href="#analiza">Analiză</a><a href="#costuri">Costuri lunare</a><a href="#retete">Rețete</a><a href="#date">Date</a>
+<nav class="tabs" aria-label="Menu">
+<a href="#analiza" data-t="tA"></a><a href="#costuri" data-t="tC"></a><a href="#retete" data-t="tR"></a><a href="#date" data-t="tD"></a>
 </nav>
 <main>
 <section class="band" id="analiza"><div class="wrap">
-<h2>Unde se scurg banii</h2>
+<h2 data-t="hAn"></h2>
 <div id="bars"></div>
-<p class="note">Zona verde = reperul obișnuit în branșă (orientativ; diferă după tipul localului). Food cost și băuturile sunt calculate din inventar: stoc inițial + achiziții − stoc final.</p>
-<div class="grid2"><div><h3 style="margin-bottom:14px">Ce să repari, în ordinea banilor</h3><div id="leaks"></div></div>
-<div><h3 style="margin-bottom:14px">Rețete vs. realitate</h3><div id="theo" class="theo"></div></div></div>
+<p class="note" data-t="anNote"></p>
+<div class="grid2"><div><h3 style="margin-bottom:14px" data-t="hFix"></h3><div id="leaks"></div></div>
+<div><h3 style="margin-bottom:14px" data-t="hTheo"></h3><div id="theo" class="theo"></div></div></div>
 </div></section>
 <section class="band" id="costuri" hidden><div class="wrap form">
-<h2>Costuri lunare</h2>
+<h2 data-t="tC"></h2>
 <div id="mform"></div>
 </div></section>
 <section class="band" id="retete" hidden><div class="wrap">
-<h2>Food cost pe porție</h2>
-<div class="target"><label>Food cost țintă<span class="in"><input id="tf" inputmode="decimal"><em>%</em></span></label>
-<p class="note" style="margin:0;max-width:46ch">Prețul recomandat e calculat ca prețul tău de meniu să atingă această țintă.</p></div>
-<h3 style="margin-bottom:10px">Analiza meniului</h3>
+<h2 data-t="hRec"></h2>
+<div class="target"><label><span data-t="target"></span><span class="in"><input id="tf" inputmode="decimal"><em>%</em></span></label>
+<p class="note" style="margin:0;max-width:46ch" data-t="targetNote"></p></div>
+<h3 style="margin-bottom:10px" data-t="hMenu"></h3>
 <div id="menu"></div>
 <div id="rlist"></div>
-<button class="add" id="addR">+ Preparat nou</button>
+<button class="add" id="addR" data-t="addR"></button>
 </div></section>
 <section class="band" id="date" hidden><div class="wrap form">
-<h2>Datele tale</h2>
-<p>Datele stau doar în browserul acestui dispozitiv. Ca să le muți pe alt telefon sau PC, copiază-le și lipește-le acolo.</p>
-<div class="row"><button id="copy">Copiază datele</button><span id="copied" class="note" style="align-self:center"></span></div>
-<label for="imp">Lipește date copiate</label>
+<h2 data-t="hData"></h2>
+<p data-t="dataP"></p>
+<div class="row"><button id="copy" data-t="copy"></button><span id="copied" class="note" style="align-self:center"></span></div>
+<label for="imp" data-t="impL"></label>
 <textarea id="imp" placeholder='{"m":{...},"r":[...]}'></textarea>
-<div class="row"><button id="doImp">Importă</button><button class="ghost" id="ex">Repune datele de exemplu</button><button class="ghost x" id="clr">Golește tot</button></div>
+<div class="row"><button id="doImp" data-t="doImp"></button><button class="ghost" id="ex" data-t="ex"></button><button class="ghost x" id="clr" data-t="clr"></button></div>
 <p id="msg" class="note"></p>
 </div></section>
 </main>
@@ -143,118 +157,177 @@ const $=s=>document.querySelector(s);
 const num=v=>{const x=parseFloat(String(v??'').replace(/\s/g,'').replace(',','.'));return isFinite(x)?x:0};
 const fe=new Intl.NumberFormat('de-AT',{style:'currency',currency:'EUR',maximumFractionDigits:0});
 const fe2=new Intl.NumberFormat('de-AT',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
-const fp=x=>isFinite(x)?x.toLocaleString('ro-RO',{maximumFractionDigits:1})+' %':'–';
+const fp=x=>isFinite(x)?x.toLocaleString('de-AT',{maximumFractionDigits:1})+' %':'–';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-const EX={tf:'30',m:{vm:'48000',vb:'17000',fi:'6000',fa:'17500',ff:'5800',bi:'3000',ba:'4200',bf:'3100',sal:'15000',tax:'30',cur:'1900',gaz:'1100',apa:'350',chi:'4800',alt:'5500',ris:'900'},
-r:[{n:'Schnitzel de porc cu salată de cartofi',p:'16.90',t:'10',v:'420',i:[{n:'Cotlet porc',q:'180',pr:'9.50',y:'90'},{n:'Pesmet, făină, ou',q:'90',pr:'3.20',y:'100'},{n:'Ulei prăjit',q:'60',pr:'2.80',y:'100'},{n:'Salată de cartofi',q:'250',pr:'1.60',y:'85'},{n:'Lămâie',q:'15',pr:'3.00',y:'100'}]},
-{n:'Gulaș de vită cu găluște',p:'15.50',t:'10',v:'260',i:[{n:'Pulpă vită',q:'220',pr:'14.00',y:'95'},{n:'Ceapă',q:'150',pr:'1.10',y:'90'},{n:'Boia, condimente',q:'8',pr:'25.00',y:'100'},{n:'Găluște',q:'150',pr:'3.00',y:'100'}]},
-{n:'Pizza Margherita',p:'11.90',t:'10',v:'500',i:[{n:'Aluat',q:'250',pr:'0.90',y:'100'},{n:'Sos roșii',q:'90',pr:'2.50',y:'100'},{n:'Mozzarella',q:'120',pr:'7.50',y:'100'},{n:'Ulei măsline, busuioc',q:'12',pr:'14.00',y:'100'}]}]};
-const clone=o=>JSON.parse(JSON.stringify(o));
-let S=clone(EX);
-try{const d=JSON.parse(localStorage.getItem('foodcost1'));if(d&&d.m&&Array.isArray(d.r))S=d}catch(e){}
-const save=()=>{try{localStorage.setItem('foodcost1',JSON.stringify(S))}catch(e){}};
+const L={
+de:{tag:'Wareneinsatz & Kosten',h1:'Wareneinsatz und Kosten im Griff',sub:'Monatskosten und Rezepte eingeben – die App zeigt, wo das Geld im Vergleich zu Branchenwerten hingeht und was Sie tun können.',note:'Startet mit Beispieldaten. Ersetzen Sie sie durch Ihre eigenen; sie werden auf diesem Gerät gespeichert.',
+tA:'Analyse',tC:'Monatskosten',tR:'Rezepte',tD:'Daten',hAn:'Wo das Geld versickert',anNote:'Grüner Bereich = üblicher Branchenwert (Richtwert, je nach Betriebsart verschieden). Wareneinsatz Küche und Getränke kommen aus der Inventur: Anfangsbestand + Einkauf − Endbestand.',
+hFix:'Was zuerst beheben – nach Euro sortiert',hTheo:'Rezepte vs. Realität',hRec:'Wareneinsatz pro Portion',target:'Ziel-Wareneinsatz',targetNote:'Der empfohlene Preis wird so berechnet, dass Ihr Menüpreis dieses Ziel erreicht.',hMenu:'Menüanalyse',addR:'+ Neues Gericht',
+hData:'Ihre Daten',dataP:'Die Daten bleiben nur im Browser dieses Geräts. Um sie auf ein anderes Handy oder einen PC zu übertragen, kopieren Sie sie und fügen Sie sie dort ein.',copy:'Daten kopieren',impL:'Kopierte Daten einfügen',doImp:'Importieren',ex:'Beispieldaten wiederherstellen',clr:'Alles löschen',clr2:'Nochmals tippen zum Löschen',
+copied:'Kopiert.',copyFail:'Automatisches Kopieren nicht möglich. Die Daten stehen im Feld unten: markieren und kopieren.',imported:'Daten importiert.',badImp:'Der Text sieht nicht nach Daten aus dieser App aus.',exDone:'Beispieldaten wiederhergestellt.',cleared:'Alles gelöscht.',
+leakLab:'Mehrkosten gegenüber Branchenwerten',perMonth:'pro Monat',perYear:x=>'ca. '+x+' pro Jahr',inRange:'Kosten im Richtwert',profit:'Betriebsergebnis',ofSales:'vom Umsatz, vor Steuern',prime:'Prime Cost',ref:'Richtwert',under:'unter',foodReal:'Wareneinsatz Küche (Ist)',
+cn:{food:'Wareneinsatz Küche',bev:'Wareneinsatz Getränke',pers:'Personal inkl. Lohnnebenkosten',prime:'Prime Cost (Ware + Personal)',en:'Energie & Betriebskosten',chi:'Miete',alt:'Sonstige Kosten',ris:'Abfall & Verderb'},
+of:{f:'vom Küchenumsatz',b:'vom Getränkeumsatz',v:'vom Gesamtumsatz',c:'vom Warenverbrauch'},perMo:'/Monat',allOk:'Alle Kategorien im Richtwert',allOkP:'Schauen Sie trotzdem im Tab Rezepte nach Gerichten mit niedriger Marge: dort steckt oft noch Geld.',
+thTh:'Soll-Wareneinsatz (aus Rezepten)',thReal:'Ist-Wareneinsatz (aus Inventur)',thGap:x=>'eingekaufte Ware, die nicht auf verkauften Tellern landet (Differenz '+x+'). Typische Ursachen: zu große Portionen, Abfall, Gratisessen, Diebstahl oder fehlerhafte Inventur.',thOk:'Geringe Differenz – die Portionierung scheint unter Kontrolle.',thNote:'Der Vergleich stimmt nur, wenn die Rezepte fast das ganze Angebot abdecken und die Verkaufszahlen pro Gericht echt sind (aus der Kassa).',thEmpty:'Fügen Sie im Tab Rezepte Gerichte und verkaufte Portionen hinzu, um Soll und Ist zu vergleichen.',
+grp:{s:'Nettoumsatz (ohne USt.)',f:'Ware Küche',b:'Getränke',p:'Personal',e:'Energie & Betriebskosten',o:'Miete & Sonstiges',w:'Abfall'},
+fld:{vm:'Umsatz Küche',vb:'Umsatz Getränke',fi:'Anfangsbestand',fa:'Einkauf im Monat',ff:'Endbestand',sal:'Bruttolöhne gesamt',tax:'Lohnnebenkosten auf brutto',cur:'Strom',gaz:'Gas',apa:'Wasser, Müll',chi:'Miete',alt:'Sonstiges (Leasing, Versicherungen, Karten- und Lieferprovisionen, Marketing)',ris:'Weggeworfene Ware, Wert'},
+hint:{f:'Verbrauch = Anfangsbestand + Einkauf − Endbestand. Inventur immer am gleichen Tag jedes Monats.',p:'Lohnnebenkosten (Sozialversicherung, Abgaben) liegen in Österreich meist bei rund 30 % auf brutto. Genauen Wert mit der Steuerberatung abklären.',w:'Aus dem Abfallprotokoll. Bereits im Warenverbrauch enthalten; hier separat sichtbar.'},
+dish:'Name des Gerichts',del:'Löschen',delI:'Zutat löschen',price:'Menüpreis inkl. USt.',vat:'USt.',sold:'Verkauft pro Monat',pcs:'Stk',ing:'Zutat',gr:'Gramm / Portion',grS:'Gramm',ppk:'Preis €/kg',yld:'Ausbeute %',cost:'Kosten',addI:'+ Zutat',cpp:'Kosten pro Portion',fc:'Wareneinsatz',mpp:'Marge pro Portion (netto)',pfor:x=>'Preis für '+x,none:'Noch keine Gerichte.',
+mh:['Gericht','Wareneinsatz','Marge/Portion','Verkauft','Deckungsbeitrag/Monat','Bewertung'],vd:['Star: behalten','Beliebt, geringe Marge: Preis erhöhen oder Kosten senken','Profitabel, wenig verkauft: bewerben','Kandidat zum Streichen'],newDish:'Neues Gericht',
+T:{food:['Portionen wiegen: Waage am Pass und Rezeptkarte mit Grammatur für jedes Gericht.','Wöchentliche Inventur bei teuren Produkten (Fleisch, Käse, Fisch).','Preise monatlich bei 2–3 Lieferanten vergleichen und Mengenrabatt verhandeln.','Menüpreise im Tab Rezepte neu kalkulieren.','FIFO im Kühlraum und Datumsetiketten, damit nichts abläuft.'],
+bev:['Ausschankmaße oder Dosierer für Spirituosen.','Bar-Inventur bei jedem Schichtwechsel oder mindestens wöchentlich.','Getränke mit niedriger Marge prüfen (offener Wein, Cocktails).','Jedes Gratisgetränk notieren (Personal, Einladungen).'],
+pers:['Dienstplan nach Umsatz pro Stunde: weniger Personal in ruhigen Zeiten.','Teilzeit- oder geteilte Dienste für Mittags- und Abendspitzen.','Mise en place in ruhigen Stunden, nicht in der Spitze.','Überstunden im Blick behalten: dort versickert oft Geld.'],
+en:['Herde und Öfen erst einschalten, wenn sie gebraucht werden – nicht alles am Morgen.','Kondensatoren der Kühlgeräte reinigen und undichte Türdichtungen tauschen.','Dunstabzug stufenweise statt immer auf Maximum.','Strom- und Gasanbieter vergleichen (Tarifkalkulator auf e-control.at).'],
+chi:['Fläche besser nutzen: Mittagsmenü, Catering, private Feiern.','Miete oder Indexklausel bei der Vertragsverlängerung neu verhandeln.'],
+alt:['Provisionen der Lieferplattformen prüfen: in den Apps höhere Preise ansetzen.','Ungenutzte Abos und Leasingverträge kündigen.','Gebühren am Kartenterminal vergleichen.'],
+ris:['Tägliches Abfallprotokoll führen: was, wie viel und warum.','Vorbereitung nach Umsatzprognose, nicht nach Gefühl.','Saubere Reste im Mittagsmenü, in Suppen oder fürs Personalessen verwenden.']},
+ex:[['Schweinsschnitzel mit Kartoffelsalat',['Schweinskarree','Panier (Mehl, Ei, Brösel)','Frittieröl','Kartoffelsalat','Zitrone']],['Rindsgulasch mit Knödel',['Rindswade','Zwiebel','Paprikapulver, Gewürze','Knödel']],['Pizza Margherita',['Teig','Tomatensauce','Mozzarella','Olivenöl, Basilikum']]]},
 
-const F=[['Vânzări nete (fără TVA)',[['vm','Vânzări mâncare'],['vb','Vânzări băuturi']]],
-['Marfă mâncare',[['fi','Stoc inițial'],['fa','Achiziții în lună'],['ff','Stoc final']],'Consum = stoc inițial + achiziții − stoc final. Fă inventarul în aceeași zi a fiecărei luni.'],
-['Băuturi',[['bi','Stoc inițial'],['ba','Achiziții în lună'],['bf','Stoc final']]],
-['Personal',[['sal','Salarii brute (total)'],['tax','Costuri angajator peste brut']],'Costurile angajatorului (asigurări, contribuții) adaugă de obicei în jur de 30 % peste brut în Austria. Verifică cifra exactă cu contabilul.'],
-['Energie și utilități',[['cur','Curent'],['gaz','Gaz'],['apa','Apă, gunoi']]],
-['Spațiu și alte costuri',[['chi','Chirie'],['alt','Altele (leasing, asigurări, comisioane card și livrare, marketing)']]],
-['Risipă',[['ris','Marfă aruncată, valoare']],'Din jurnalul de risipă. E deja inclusă în consumul de marfă; aici o vezi separat.']];
+en:{tag:'Food cost & expenses',h1:'Food cost and restaurant expenses',sub:'Enter monthly costs and recipes – the app shows where your money goes compared with industry benchmarks, and what to do about it.',note:'Starts with sample data. Replace it with your own; it is saved on this device.',
+tA:'Analysis',tC:'Monthly costs',tR:'Recipes',tD:'Data',hAn:'Where the money leaks',anNote:'Green zone = typical industry range (a rule of thumb; varies by type of venue). Food and beverage cost come from stock counts: opening stock + purchases − closing stock.',
+hFix:'What to fix first, by euros',hTheo:'Recipes vs. reality',hRec:'Food cost per portion',target:'Target food cost',targetNote:'The recommended price is set so your menu price hits this target.',hMenu:'Menu analysis',addR:'+ New dish',
+hData:'Your data',dataP:'Data stays only in this device’s browser. To move it to another phone or PC, copy it and paste it there.',copy:'Copy data',impL:'Paste copied data',doImp:'Import',ex:'Restore sample data',clr:'Clear everything',clr2:'Tap again to clear everything',
+copied:'Copied.',copyFail:'Couldn’t copy automatically. The data is in the box below: select it and copy.',imported:'Data imported.',badImp:'This text doesn’t look like data from this app.',exDone:'Sample data restored.',cleared:'Everything cleared.',
+leakLab:'Spent above industry benchmarks',perMonth:'per month',perYear:x=>'about '+x+' per year',inRange:'costs are within benchmarks',profit:'Operating profit',ofSales:'of sales, before tax',prime:'Prime cost',ref:'benchmark',under:'under',foodReal:'Actual food cost',
+cn:{food:'Food cost',bev:'Beverage cost',pers:'Staff incl. employer costs',prime:'Prime cost (goods + staff)',en:'Energy & utilities',chi:'Rent',alt:'Other costs',ris:'Waste'},
+of:{f:'of food sales',b:'of beverage sales',v:'of total sales',c:'of food used'},perMo:'/month',allOk:'All categories within benchmarks',allOkP:'Still check the Recipes tab for low-margin dishes: there’s often money there.',
+thTh:'Theoretical food cost (from recipes)',thReal:'Actual food cost (from stock count)',thGap:x=>'worth of purchased food that never reaches a sold plate (gap of '+x+'). Typical causes: oversized portions, waste, free meals, theft or a wrong stock count.',thOk:'Small gap – portioning looks under control.',thNote:'The comparison only holds if the recipes cover almost everything you sell and the per-dish sales are real (from the till).',thEmpty:'Add dishes and portions sold in the Recipes tab to compare what food should cost with what it actually costs.',
+grp:{s:'Net sales (excl. VAT)',f:'Food stock',b:'Beverages',p:'Staff',e:'Energy & utilities',o:'Premises & other',w:'Waste'},
+fld:{vm:'Food sales',vb:'Beverage sales',fi:'Opening stock',fa:'Purchases this month',ff:'Closing stock',sal:'Gross wages (total)',tax:'Employer costs on top of gross',cur:'Electricity',gaz:'Gas',apa:'Water, waste collection',chi:'Rent',alt:'Other (leasing, insurance, card and delivery fees, marketing)',ris:'Food thrown away, value'},
+hint:{f:'Usage = opening stock + purchases − closing stock. Count stock on the same day each month.',p:'In Austria, employer costs (social insurance, payroll levies) usually add around 30 % on top of gross. Check the exact figure with your accountant.',w:'From your waste log. Already included in food usage; shown here separately.'},
+dish:'Dish name',del:'Delete',delI:'Delete ingredient',price:'Menu price incl. VAT',vat:'VAT',sold:'Sold per month',pcs:'pcs',ing:'Ingredient',gr:'Grams / portion',grS:'Grams',ppk:'Price €/kg',yld:'Yield %',cost:'Cost',addI:'+ Ingredient',cpp:'Cost per portion',fc:'Food cost',mpp:'Margin per portion (net)',pfor:x=>'Price for '+x,none:'No dishes yet.',
+mh:['Dish','Food cost','Margin/portion','Sold','Contribution/month','Verdict'],vd:['Star: keep it','Popular, low margin: raise price or cut cost','Profitable, sells little: promote it','Candidate to drop'],newDish:'New dish',
+T:{food:['Weigh portions: a scale at the pass and a spec sheet with grams for every dish.','Weekly stock count on expensive items (meat, cheese, fish).','Compare prices with 2–3 suppliers every month and negotiate volume discounts.','Recalculate menu prices in the Recipes tab.','FIFO in the fridges and date labels so nothing expires.'],
+bev:['Fixed measures or pourers for spirits.','Bar stock count at every shift change, or at least weekly.','Check low-margin drinks (wine by the glass, cocktails).','Record every free drink (staff, guests on the house).'],
+pers:['Schedule by sales per hour: fewer people in quiet hours.','Part-time or split shifts for lunch and dinner peaks.','Do mise en place in quiet hours, not at peak.','Watch overtime: that is often where the money goes.'],
+en:['Switch on hobs and ovens only when needed, not everything first thing in the morning.','Clean fridge condensers and replace worn door seals.','Run the extractor hood by stages, not always at full power.','Compare electricity and gas suppliers (in Austria: Tarifkalkulator at e-control.at).'],
+chi:['Use the space more: lunch menu, catering, private events.','Renegotiate rent or the indexation clause when the lease is renewed.'],
+alt:['Check delivery platform commissions: set higher prices in the apps.','Cancel unused subscriptions and leases.','Compare card terminal fees.'],
+ris:['Keep a daily waste log: what, how much and why.','Prep to the sales forecast, not by eye.','Use clean leftovers in the lunch menu, soups or the staff meal.']},
+ex:[['Pork schnitzel with potato salad',['Pork loin','Breading (flour, egg, crumbs)','Frying oil','Potato salad','Lemon']],['Beef goulash with dumplings',['Beef shin','Onion','Paprika, spices','Dumplings']],['Pizza Margherita',['Dough','Tomato sauce','Mozzarella','Olive oil, basil']]]},
 
-const T={food:['Cântărește porțiile: cântar la pass și fișă tehnică cu gramaj pentru fiecare preparat.','Inventar săptămânal la produsele scumpe (carne, brânzeturi, pește).','Compară lunar prețurile la 2–3 furnizori și negociază la volum.','Recalculează prețurile din meniu în tab-ul Rețete.','FIFO în frigidere și etichete cu data, ca să nu expire marfa.'],
+ro:{tag:'Food cost și cheltuieli',h1:'Food cost și cheltuieli restaurant',sub:'Bagi costurile lunii și rețetele, iar aplicația arată unde se duc banii față de reperele din branșă și ce poți face.',note:'Pornește cu date de exemplu. Înlocuiește-le cu ale tale; se salvează pe acest dispozitiv.',
+tA:'Analiză',tC:'Costuri lunare',tR:'Rețete',tD:'Date',hAn:'Unde se scurg banii',anNote:'Zona verde = reperul obișnuit în branșă (orientativ; diferă după tipul localului). Food cost și băuturile sunt calculate din inventar: stoc inițial + achiziții − stoc final.',
+hFix:'Ce să repari, în ordinea banilor',hTheo:'Rețete vs. realitate',hRec:'Food cost pe porție',target:'Food cost țintă',targetNote:'Prețul recomandat e calculat ca prețul tău de meniu să atingă această țintă.',hMenu:'Analiza meniului',addR:'+ Preparat nou',
+hData:'Datele tale',dataP:'Datele stau doar în browserul acestui dispozitiv. Ca să le muți pe alt telefon sau PC, copiază-le și lipește-le acolo.',copy:'Copiază datele',impL:'Lipește date copiate',doImp:'Importă',ex:'Repune datele de exemplu',clr:'Golește tot',clr2:'Apasă din nou ca să ștergi tot',
+copied:'Copiat.',copyFail:'Nu am putut copia automat. Datele sunt în căsuța de mai jos: selectează și copiază.',imported:'Date importate.',badImp:'Textul nu pare să fie date copiate din această aplicație.',exDone:'Am repus datele de exemplu.',cleared:'Totul a fost șters.',
+leakLab:'Bani cheltuiți peste reperele din branșă',perMonth:'pe lună',perYear:x=>'aproximativ '+x+' pe an',inRange:'costurile sunt în repere',profit:'Profit operațional',ofSales:'din vânzări, înainte de impozite',prime:'Prime cost',ref:'reper',under:'sub',foodReal:'Food cost real',
+cn:{food:'Food cost (mâncare)',bev:'Cost băuturi',pers:'Personal, cu taxe',prime:'Prime cost (marfă + personal)',en:'Energie și utilități',chi:'Chirie',alt:'Alte costuri',ris:'Risipă'},
+of:{f:'din vânzări mâncare',b:'din vânzări băuturi',v:'din total vânzări',c:'din consumul de marfă'},perMo:'/lună',allOk:'Toate categoriile sunt în repere',allOkP:'Uită-te totuși în tab-ul Rețete la preparatele cu marjă mică: acolo mai găsești bani.',
+thTh:'Food cost teoretic (din rețete)',thReal:'Food cost real (din inventar)',thGap:x=>'marfă cumpărată care nu ajunge în farfuriile vândute (diferență de '+x+'). Cauze tipice: porții mai mari decât în rețetă, risipă, mese gratuite, furt sau inventar greșit.',thOk:'Diferența e mică, deci porționarea pare sub control.',thNote:'Comparația e corectă doar dacă rețetele acoperă aproape tot ce vinzi și vânzările pe preparat sunt reale (din casa de marcat).',thEmpty:'Adaugă rețete și porții vândute în tab-ul Rețete ca să compari ce ar trebui să coste mâncarea cu ce costă în realitate.',
+grp:{s:'Vânzări nete (fără TVA)',f:'Marfă mâncare',b:'Băuturi',p:'Personal',e:'Energie și utilități',o:'Spațiu și alte costuri',w:'Risipă'},
+fld:{vm:'Vânzări mâncare',vb:'Vânzări băuturi',fi:'Stoc inițial',fa:'Achiziții în lună',ff:'Stoc final',sal:'Salarii brute (total)',tax:'Costuri angajator peste brut',cur:'Curent',gaz:'Gaz',apa:'Apă, gunoi',chi:'Chirie',alt:'Altele (leasing, asigurări, comisioane card și livrare, marketing)',ris:'Marfă aruncată, valoare'},
+hint:{f:'Consum = stoc inițial + achiziții − stoc final. Fă inventarul în aceeași zi a fiecărei luni.',p:'Costurile angajatorului (asigurări, contribuții) adaugă de obicei în jur de 30 % peste brut în Austria. Verifică cifra exactă cu contabilul.',w:'Din jurnalul de risipă. E deja inclusă în consumul de marfă; aici o vezi separat.'},
+dish:'Nume preparat',del:'Șterge',delI:'Șterge ingredientul',price:'Preț în meniu, cu TVA',vat:'TVA',sold:'Vândute pe lună',pcs:'buc',ing:'Ingredient',gr:'Gram / porție',grS:'Gram',ppk:'Preț €/kg',yld:'Randament %',cost:'Cost',addI:'+ Ingredient',cpp:'Cost pe porție',fc:'Food cost',mpp:'Marjă pe porție (net)',pfor:x=>'Preț pentru '+x,none:'Niciun preparat încă.',
+mh:['Preparat','Food cost','Marjă/porție','Vândute','Contribuție/lună','Verdict'],vd:['Vedetă: păstrează','Popular, marjă mică: crește prețul sau scade costul','Profitabil, se vinde puțin: promovează-l','Candidat la scos din meniu'],newDish:'Preparat nou',
+T:{food:['Cântărește porțiile: cântar la pass și fișă tehnică cu gramaj pentru fiecare preparat.','Inventar săptămânal la produsele scumpe (carne, brânzeturi, pește).','Compară lunar prețurile la 2–3 furnizori și negociază la volum.','Recalculează prețurile din meniu în tab-ul Rețete.','FIFO în frigidere și etichete cu data, ca să nu expire marfa.'],
 bev:['Măsuri fixe sau dozatoare la bar pentru spirtoase.','Inventar la bar la fiecare schimb de tură sau măcar săptămânal.','Verifică băuturile cu marjă mică (vin la pahar, cocktailuri).','Notează fiecare consumație gratuită (personal, protocol).'],
 pers:['Fă programul după vânzările pe ore: mai puțini oameni în orele moarte.','Ture parțiale sau împărțite pentru vârfurile de prânz și seară.','Mise en place în orele liniștite, nu în vârf.','Urmărește orele suplimentare: deseori acolo se duc banii.'],
 en:['Pornește plitele și cuptoarele doar când ai nevoie de ele, nu toate dimineața.','Curăță condensatoarele frigiderelor și schimbă garniturile uzate de la uși.','Hota pe trepte de putere, nu mereu la maxim.','Compară furnizorii de curent și gaz (în Austria: Tarifkalkulator pe e-control.at).'],
 chi:['Folosește spațiul mai mult: meniul zilei la prânz, catering, evenimente private.','Renegociază chiria sau clauza de indexare la reînnoirea contractului.'],
-alt:['Comisioanele platformelor de livrare: pune prețuri mai mari în aplicații.','Anulează abonamentele și leasingurile nefolosite.','Compară comisioanele la terminalul de card.'],
-ris:['Ține un jurnal zilnic de risipă: ce, cât și de ce.','Fă prep-ul după prognoza de vânzări, nu din ochi.','Folosește resturile curate în meniul zilei, supe sau masa personalului.']};
+alt:['Verifică comisioanele platformelor de livrare: pune prețuri mai mari în aplicații.','Anulează abonamentele și leasingurile nefolosite.','Compară comisioanele la terminalul de card.'],
+ris:['Ține un jurnal zilnic de risipă: ce, cât și de ce.','Fă prep-ul după prognoza de vânzări, nu din ochi.','Folosește resturile curate în meniul zilei, supe sau masa personalului.']},
+ex:[['Schnitzel de porc cu salată de cartofi',['Cotlet porc','Pesmet, făină, ou','Ulei prăjit','Salată de cartofi','Lămâie']],['Gulaș de vită cu găluște',['Pulpă vită','Ceapă','Boia, condimente','Găluște']],['Pizza Margherita',['Aluat','Sos roșii','Mozzarella','Ulei măsline, busuioc']]]}};
+
+let lang='de';
+try{const s=localStorage.getItem('margo-lang');const n=(navigator.language||'').slice(0,2);lang=L[s]?s:L[n]?n:'de'}catch(e){}
+const t=()=>L[lang];
+
+const EXN=[{p:'16.90',t:'10',v:'420',i:[['180','9.50','90'],['90','3.20','100'],['60','2.80','100'],['250','1.60','85'],['15','3.00','100']]},
+{p:'15.50',t:'10',v:'260',i:[['220','14.00','95'],['150','1.10','90'],['8','25.00','100'],['150','3.00','100']]},
+{p:'11.90',t:'10',v:'500',i:[['250','0.90','100'],['90','2.50','100'],['120','7.50','100'],['12','14.00','100']]}];
+const EX=()=>({tf:'30',m:{vm:'48000',vb:'17000',fi:'6000',fa:'17500',ff:'5800',bi:'3000',ba:'4200',bf:'3100',sal:'15000',tax:'30',cur:'1900',gaz:'1100',apa:'350',chi:'4800',alt:'5500',ris:'900'},
+r:EXN.map((d,k)=>({n:t().ex[k][0],p:d.p,t:d.t,v:d.v,i:d.i.map((x,j)=>({n:t().ex[k][1][j],q:x[0],pr:x[1],y:x[2]}))}))});
+let S=null;
+try{const d=JSON.parse(localStorage.getItem('foodcost1'));if(d&&d.m&&Array.isArray(d.r))S=d}catch(e){}
+if(!S)S=EX();
+const save=()=>{try{localStorage.setItem('foodcost1',JSON.stringify(S))}catch(e){}};
+
+const F=[['s',['vm','vb']],['f',['fi','fa','ff'],'f'],['b',['bi','ba','bf']],['p',['sal','tax'],'p'],['e',['cur','gaz','apa']],['o',['chi','alt']],['w',['ris'],'w']];
+const lab=k=>t().fld[k]||t().fld[{bi:'fi',ba:'fa',bf:'ff'}[k]];
 
 function calc(){
 const g=k=>num(S.m[k]);const vm=g('vm'),vb=g('vb'),V=vm+vb;
 const cf=g('fi')+g('fa')-g('ff'),cb=g('bi')+g('ba')-g('bf');
 const pers=g('sal')*(1+g('tax')/100),en=g('cur')+g('gaz')+g('apa'),chi=g('chi'),alt=g('alt'),ris=g('ris');
 const total=cf+cb+pers+en+chi+alt,profit=V-total;
-const cats=[{k:'food',n:'Food cost (mâncare)',v:cf,b:vm,lo:28,hi:35,of:'din vânzări mâncare'},
-{k:'bev',n:'Cost băuturi',v:cb,b:vb,lo:18,hi:25,of:'din vânzări băuturi'},
-{k:'pers',n:'Personal, cu taxe',v:pers,b:V,lo:25,hi:35,of:'din total vânzări'},
-{k:'prime',n:'Prime cost (marfă + personal)',v:cf+cb+pers,b:V,lo:55,hi:65,of:'din total vânzări',sum:1},
-{k:'en',n:'Energie și utilități',v:en,b:V,lo:3,hi:6,of:'din total vânzări'},
-{k:'chi',n:'Chirie',v:chi,b:V,lo:6,hi:10,of:'din total vânzări'},
-{k:'alt',n:'Alte costuri',v:alt,b:V,lo:4,hi:10,of:'din total vânzări'},
-{k:'ris',n:'Risipă',v:ris,b:cf,lo:0,hi:4,of:'din consumul de marfă',sum:1}];
+const cats=[{k:'food',v:cf,b:vm,lo:28,hi:35,of:'f'},{k:'bev',v:cb,b:vb,lo:18,hi:25,of:'b'},{k:'pers',v:pers,b:V,lo:25,hi:35,of:'v'},
+{k:'prime',v:cf+cb+pers,b:V,lo:55,hi:65,of:'v',sum:1},{k:'en',v:en,b:V,lo:3,hi:6,of:'v'},{k:'chi',v:chi,b:V,lo:6,hi:10,of:'v'},
+{k:'alt',v:alt,b:V,lo:4,hi:10,of:'v'},{k:'ris',v:ris,b:cf,lo:0,hi:4,of:'c',sum:1}];
 cats.forEach(c=>{c.p=c.b>0?c.v/c.b*100:NaN;c.x=c.b>0?Math.max(0,(c.p-c.hi)/100*c.b):0;c.s=!(c.b>0)?'na':c.p<=c.hi?'ok':c.p<=c.hi*1.15?'warn':'bad'});
 const leak=cats.filter(c=>!c.sum).reduce((a,c)=>a+c.x,0);
-return{vm,V,cf,profit,cats,leak,by:k=>cats.find(c=>c.k===k)}}
+return{vm,V,profit,cats,leak,by:k=>cats.find(c=>c.k===k)}}
 
 function rc(r){const cost=(r.i||[]).reduce((a,x)=>a+num(x.q)/1000*num(x.pr)/(Math.max(num(x.y),1)/100),0);
 const net=num(r.p)/(1+num(r.t)/100);const tf=num(S.tf)/100||.3;
 return{cost,net,fc:net>0?cost/net*100:NaN,mg:net-cost,rec:cost/tf*(1+num(r.t)/100),sold:num(r.v)}}
-const st=fc=>{const t=num(S.tf)||30;return !isFinite(fc)?'':fc<=t?'ok':fc<=t*1.15?'warn':'bad'};
+const st=fc=>{const g=num(S.tf)||30;return !isFinite(fc)?'':fc<=g?'ok':fc<=g*1.15?'warn':'bad'};
 
-function renderTop(){const c=calc();
-$('#hero').innerHTML=`<div class="wrap hwrap"><div class="big"><span class="lab">Bani cheltuiți peste reperele din branșă</span><b>${fe.format(c.leak)}</b><span class="lab">pe lună${c.leak>0?' · aproximativ '+fe.format(c.leak*12)+' pe an':' · costurile sunt în repere'}</span></div>
-<dl class="stats"><div><dt>Profit operațional</dt><dd>${fe.format(c.profit)}</dd><small>${fp(c.V?c.profit/c.V*100:NaN)} din vânzări, înainte de impozite</small></div>
-<div><dt>Prime cost</dt><dd>${fp(c.by('prime').p)}</dd><small>reper 55–65 %</small></div>
-<div><dt>Food cost real</dt><dd>${fp(c.by('food').p)}</dd><small>reper 28–35 %</small></div></dl></div>`;
+function renderTop(){const c=calc(),T=t();
+$('#hero').innerHTML=`<div class="wrap hwrap"><div class="big"><span class="lab">${T.leakLab}</span><b>${fe.format(c.leak)}</b><span class="lab">${T.perMonth} · ${c.leak>0?T.perYear(fe.format(c.leak*12)):T.inRange}</span></div>
+<dl class="stats"><div><dt>${T.profit}</dt><dd>${fe.format(c.profit)}</dd><small>${fp(c.V?c.profit/c.V*100:NaN)} ${T.ofSales}</small></div>
+<div><dt>${T.prime}</dt><dd>${fp(c.by('prime').p)}</dd><small>${T.ref} 55–65 %</small></div>
+<div><dt>${T.foodReal}</dt><dd>${fp(c.by('food').p)}</dd><small>${T.ref} 28–35 %</small></div></dl></div>`;
 $('#bars').innerHTML=c.cats.map(x=>{const sc=x.hi*1.6,w=isFinite(x.p)?Math.min(x.p/sc,1)*100:0;
-return`<div class="bar ${x.s}"><div class="bl"><b>${x.n}</b><small>${fe.format(x.v)} · ${x.of}</small></div><div class="tr"><i class="zone" style="left:${x.lo/sc*100}%;width:${(x.hi-x.lo)/sc*100}%"></i><i class="fill" style="width:${w}%"></i></div><div class="bv">${fp(x.p)}<small>reper ${x.lo?x.lo+'–'+x.hi:'sub '+x.hi} %</small></div></div>`}).join('');
-const L=c.cats.filter(x=>!x.sum&&x.x>0).sort((a,b)=>b.x-a.x);const r=c.by('ris');
-let h=L.map(x=>`<div class="leak"><h3>${x.n}<span>+${fe.format(x.x)}/lună</span></h3><ul>${T[x.k].map(t=>`<li>${t}</li>`).join('')}</ul></div>`).join('');
-if(r.s==='warn'||r.s==='bad')h+=`<div class="leak"><h3>Risipă<span>${fp(r.p)}</span></h3><ul>${T.ris.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
-$('#leaks').innerHTML=h||'<div class="leak"><h3>Toate categoriile sunt în repere</h3><p>Uită-te totuși în tab-ul Rețete la preparatele cu marjă mică: acolo mai găsești bani.</p></div>';
-const rs=S.r.map(rc).filter(x=>x.sold>0);const tc=rs.reduce((a,x)=>a+x.cost*x.sold,0),tn=rs.reduce((a,x)=>a+x.net*x.sold,0);
+return`<div class="bar ${x.s}"><div class="bl"><b>${T.cn[x.k]}</b><small>${fe.format(x.v)} · ${T.of[x.of]}</small></div><div class="tr"><i class="zone" style="left:${x.lo/sc*100}%;width:${(x.hi-x.lo)/sc*100}%"></i><i class="fill" style="width:${w}%"></i></div><div class="bv">${fp(x.p)}<small>${T.ref} ${x.lo?x.lo+'–'+x.hi:T.under+' '+x.hi} %</small></div></div>`}).join('');
+const Lk=c.cats.filter(x=>!x.sum&&x.x>0).sort((a,b)=>b.x-a.x),r=c.by('ris');
+let h=Lk.map(x=>`<div class="leak"><h3>${T.cn[x.k]}<span>+${fe.format(x.x)}${T.perMo}</span></h3><ul>${T.T[x.k].map(s=>`<li>${s}</li>`).join('')}</ul></div>`).join('');
+if(r.s==='warn'||r.s==='bad')h+=`<div class="leak"><h3>${T.cn.ris}<span>${fp(r.p)}</span></h3><ul>${T.T.ris.map(s=>`<li>${s}</li>`).join('')}</ul></div>`;
+$('#leaks').innerHTML=h||`<div class="leak"><h3>${T.allOk}</h3><p>${T.allOkP}</p></div>`;
+const rs=S.r.map(rc).filter(x=>x.sold>0),tc=rs.reduce((a,x)=>a+x.cost*x.sold,0),tn=rs.reduce((a,x)=>a+x.net*x.sold,0);
 const th=tn>0?tc/tn*100:NaN,real=c.by('food').p;
-if(isFinite(th)&&isFinite(real)){const gap=real-th,eu=gap/100*c.vm;
-$('#theo').innerHTML=`<p>Food cost teoretic (din rețete): <b>${fp(th)}</b><br>Food cost real (din inventar): <b>${fp(real)}</b></p>
-${gap>1?`<div class="fig-n">≈ ${fe.format(eu)}/lună</div><p>marfă cumpărată care nu ajunge în farfuriile vândute (diferență de ${fp(gap)}). Cauze tipice: porții mai mari decât în rețetă, risipă, mese gratuite, furt sau inventar greșit.</p>`:`<p>Diferența e mică, deci porționarea pare sub control.</p>`}
-<p class="note">Comparația e corectă doar dacă rețetele acoperă aproape tot ce vinzi și vânzările pe preparat sunt reale (din casa de marcat).</p>`}
-else $('#theo').innerHTML='<p>Adaugă rețete și porții vândute în tab-ul Rețete ca să compari ce ar trebui să coste mâncarea cu ce costă în realitate.</p>'}
+if(isFinite(th)&&isFinite(real)){const gap=real-th;
+$('#theo').innerHTML=`<p>${T.thTh}: <b>${fp(th)}</b><br>${T.thReal}: <b>${fp(real)}</b></p>${gap>1?`<div class="fig-n">≈ ${fe.format(gap/100*c.vm)}${T.perMo}</div><p>${T.thGap(fp(gap))}</p>`:`<p>${T.thOk}</p>`}<p class="note">${T.thNote}</p>`}
+else $('#theo').innerHTML=`<p>${T.thEmpty}</p>`}
 
-function renderForm(){$('#mform').innerHTML=F.map(([g,fs,hint])=>`<fieldset><legend>${g}</legend>${fs.map(([k,l])=>`<label for="m_${k}">${l}<span class="in"><input id="m_${k}" inputmode="decimal" data-m="${k}" value="${esc(S.m[k])}"><em>${k==='tax'?'%':'€'}</em></span></label>`).join('')}${hint?`<p class="hint">${hint}</p>`:''}</fieldset>`).join('')}
+function renderForm(){const T=t();$('#mform').innerHTML=F.map(([g,fs,hk])=>`<fieldset><legend>${T.grp[g]}</legend>${fs.map(k=>`<label for="m_${k}">${lab(k)}<span class="in"><input id="m_${k}" inputmode="decimal" data-m="${k}" value="${esc(S.m[k])}"><em>${k==='tax'?'%':'€'}</em></span></label>`).join('')}${hk?`<p class="hint">${T.hint[hk]}</p>`:''}</fieldset>`).join('')}
 
-function renderRecipes(){$('#tf').value=S.tf??'30';
+function renderRecipes(){const T=t();$('#tf').value=S.tf??'30';
 $('#rlist').innerHTML=S.r.map((r,ri)=>`<article class="card" data-r="${ri}">
-<div class="rh"><input class="rn" data-k="n" value="${esc(r.n)}" aria-label="Nume preparat"><button class="x" data-del-r="${ri}">Șterge</button></div>
-<div class="rf"><label>Preț în meniu, cu TVA<span class="in"><input inputmode="decimal" data-k="p" value="${esc(r.p)}"><em>€</em></span></label>
-<label>TVA<span class="in"><input inputmode="decimal" data-k="t" value="${esc(r.t)}"><em>%</em></span></label>
-<label>Vândute pe lună<span class="in"><input inputmode="decimal" data-k="v" value="${esc(r.v)}"><em>buc</em></span></label></div>
-<div class="irow ihead"><span>Ingredient</span><span>Gram / porție</span><span>Preț €/kg</span><span>Randament %</span><span class="num">Cost</span><span></span></div>
-${(r.i||[]).map((x,ii)=>`<div class="irow" data-i="${ii}"><input class="iname" data-k="n" value="${esc(x.n)}" aria-label="Ingredient" placeholder="Ingredient">
-<label><span class="ml">Gram</span><input inputmode="decimal" data-k="q" value="${esc(x.q)}" aria-label="Gram pe porție"></label>
-<label><span class="ml">€/kg</span><input inputmode="decimal" data-k="pr" value="${esc(x.pr)}" aria-label="Preț pe kg"></label>
-<label><span class="ml">Randament %</span><input inputmode="decimal" data-k="y" value="${esc(x.y)}" aria-label="Randament"></label>
-<span class="num icost" id="ic${ri}_${ii}"></span><button class="x idel" data-del-i="${ri}_${ii}" aria-label="Șterge ingredientul">×</button></div>`).join('')}
-<button class="add" data-add-i="${ri}">+ Ingredient</button>
-<div class="ro" id="ro${ri}"></div></article>`).join('')||'<p>Niciun preparat încă.</p>';
+<div class="rh"><input class="rn" data-k="n" value="${esc(r.n)}" aria-label="${T.dish}"><button class="x" data-del-r="${ri}">${T.del}</button></div>
+<div class="rf"><label>${T.price}<span class="in"><input inputmode="decimal" data-k="p" value="${esc(r.p)}"><em>€</em></span></label>
+<label>${T.vat}<span class="in"><input inputmode="decimal" data-k="t" value="${esc(r.t)}"><em>%</em></span></label>
+<label>${T.sold}<span class="in"><input inputmode="decimal" data-k="v" value="${esc(r.v)}"><em>${T.pcs}</em></span></label></div>
+<div class="irow ihead"><span>${T.ing}</span><span>${T.gr}</span><span>${T.ppk}</span><span>${T.yld}</span><span class="num">${T.cost}</span><span></span></div>
+${(r.i||[]).map((x,ii)=>`<div class="irow" data-i="${ii}"><input class="iname" data-k="n" value="${esc(x.n)}" aria-label="${T.ing}" placeholder="${T.ing}">
+<label><span class="ml">${T.grS}</span><input inputmode="decimal" data-k="q" value="${esc(x.q)}" aria-label="${T.gr}"></label>
+<label><span class="ml">€/kg</span><input inputmode="decimal" data-k="pr" value="${esc(x.pr)}" aria-label="${T.ppk}"></label>
+<label><span class="ml">${T.yld}</span><input inputmode="decimal" data-k="y" value="${esc(x.y)}" aria-label="${T.yld}"></label>
+<span class="num icost" id="ic${ri}_${ii}"></span><button class="x idel" data-del-i="${ri}_${ii}" aria-label="${T.delI}">×</button></div>`).join('')}
+<button class="add" data-add-i="${ri}">${T.addI}</button>
+<div class="ro" id="ro${ri}"></div></article>`).join('')||`<p>${T.none}</p>`;
 updRecipes()}
 
-function updRecipes(){const all=S.r.map(rc);
+function updRecipes(){const T=t(),all=S.r.map(rc);
 S.r.forEach((r,ri)=>{(r.i||[]).forEach((x,ii)=>{const e=$(`#ic${ri}_${ii}`);if(e)e.textContent=fe2.format(num(x.q)/1000*num(x.pr)/(Math.max(num(x.y),1)/100))});
-const k=all[ri],e=$('#ro'+ri);if(e)e.innerHTML=`<div><small>Cost pe porție</small><b>${fe2.format(k.cost)}</b></div><div><small>Food cost</small><b class="${st(k.fc)}">${fp(k.fc)}</b></div><div><small>Marjă pe porție (net)</small><b>${fe2.format(k.mg)}</b></div><div><small>Preț pentru ${fp(num(S.tf)||30)}</small><b>${fe2.format(k.rec)}</b></div>`});
+const k=all[ri],e=$('#ro'+ri);if(e)e.innerHTML=`<div><small>${T.cpp}</small><b>${fe2.format(k.cost)}</b></div><div><small>${T.fc}</small><b class="${st(k.fc)}">${fp(k.fc)}</b></div><div><small>${T.mpp}</small><b>${fe2.format(k.mg)}</b></div><div><small>${T.pfor(fp(num(S.tf)||30))}</small><b>${fe2.format(k.rec)}</b></div>`});
 const sold=all.filter(x=>x.sold>0),n=sold.length,ts=sold.reduce((a,x)=>a+x.sold,0),am=ts?sold.reduce((a,x)=>a+x.mg*x.sold,0)/ts:0;
-const cat=x=>{if(!n||!x.sold)return'–';const pop=x.sold>=.7*ts/n,pro=x.mg>=am;return pop&&pro?'Vedetă: păstrează':pop?'Popular, marjă mică: crește prețul sau scade costul':pro?'Profitabil, se vinde puțin: promovează-l':'Candidat la scos din meniu'};
-const rows=S.r.map((r,i)=>({r,k:all[i]})).sort((a,b)=>b.k.mg*b.k.sold-a.k.mg*a.k.sold);
-$('#menu').innerHTML=rows.length?`<table class="stack"><thead><tr><th>Preparat</th><th class="n">Food cost</th><th class="n">Marjă/porție</th><th class="n">Vândute</th><th class="n">Contribuție/lună</th><th>Verdict</th></tr></thead><tbody>${rows.map(({r,k})=>`<tr><td>${esc(r.n)}</td><td class="n">${fp(k.fc)}</td><td class="n">${fe2.format(k.mg)}</td><td class="n">${k.sold}</td><td class="n">${fe.format(k.mg*k.sold)}</td><td>${cat(k)}</td></tr>`).join('')}</tbody></table>`:''}
+const cat=x=>{if(!n||!x.sold)return'–';const pop=x.sold>=.7*ts/n,pro=x.mg>=am;return T.vd[pop&&pro?0:pop?1:pro?2:3]};
+const rows=S.r.map((r,i)=>({r,k:all[i]})).sort((a,b)=>b.k.mg*b.k.sold-a.k.mg*a.k.sold),H=T.mh;
+$('#menu').innerHTML=rows.length?`<table class="stack"><thead><tr><th>${H[0]}</th><th class="n">${H[1]}</th><th class="n">${H[2]}</th><th class="n">${H[3]}</th><th class="n">${H[4]}</th><th>${H[5]}</th></tr></thead><tbody>${rows.map(({r,k})=>`<tr><td>${esc(r.n)}</td><td class="n">${fp(k.fc)}</td><td class="n">${fe2.format(k.mg)}</td><td class="n">${k.sold}</td><td class="n">${fe.format(k.mg*k.sold)}</td><td>${cat(k)}</td></tr>`).join('')}</tbody></table>`:''}
 
-function renderAll(){renderForm();renderRecipes();renderTop()}
+function renderStatic(){const T=t();document.documentElement.lang=lang;
+document.querySelectorAll('[data-t]').forEach(e=>{const v=T[e.dataset.t];if(typeof v==='string')e.textContent=v});
+document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===lang?'true':'false'))}
+function renderAll(){renderStatic();renderForm();renderRecipes();renderTop()}
 
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;try{localStorage.setItem('margo-lang',lang)}catch(e){}renderAll()}));
 $('#mform').addEventListener('input',e=>{const k=e.target.dataset.m;if(!k)return;S.m[k]=e.target.value;save();renderTop()});
 $('#tf').addEventListener('input',e=>{S.tf=e.target.value;save();updRecipes()});
-$('#rlist').addEventListener('input',e=>{const t=e.target,k=t.dataset.k;if(!k)return;const ri=+t.closest('[data-r]').dataset.r,row=t.closest('[data-i]');
-const o=row?S.r[ri].i[+row.dataset.i]:S.r[ri];o[k]=t.value;save();updRecipes();renderTop()});
+$('#rlist').addEventListener('input',e=>{const el=e.target,k=el.dataset.k;if(!k)return;const ri=+el.closest('[data-r]').dataset.r,row=el.closest('[data-i]');
+const o=row?S.r[ri].i[+row.dataset.i]:S.r[ri];o[k]=el.value;save();updRecipes();renderTop()});
 $('#rlist').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
 if(d.delR!==undefined)S.r.splice(+d.delR,1);
 else if(d.delI){const[a,i]=d.delI.split('_').map(Number);S.r[a].i.splice(i,1)}
 else if(d.addI!==undefined)S.r[+d.addI].i.push({n:'',q:'',pr:'',y:'100'});else return;
 save();renderRecipes();renderTop()});
-$('#addR').addEventListener('click',()=>{S.r.push({n:'Preparat nou',p:'',t:'10',v:'',i:[{n:'',q:'',pr:'',y:'100'}]});save();renderRecipes();renderTop()});
-$('#copy').addEventListener('click',async()=>{const t=JSON.stringify(S);try{await navigator.clipboard.writeText(t);$('#copied').textContent='Copiat.'}catch(e){$('#imp').value=t;$('#copied').textContent='Nu am putut copia automat. Datele sunt în căsuța de mai jos: selectează și copiază.'}});
-$('#doImp').addEventListener('click',()=>{try{const d=JSON.parse($('#imp').value);if(!d.m||!Array.isArray(d.r))throw 0;S=d;save();renderAll();$('#msg').textContent='Date importate.'}catch(e){$('#msg').textContent='Textul nu pare să fie date copiate din această aplicație.'}});
-$('#ex').addEventListener('click',()=>{S=clone(EX);save();renderAll();$('#msg').textContent='Am repus datele de exemplu.'});
-let arm=0;$('#clr').addEventListener('click',e=>{if(!arm){arm=1;e.target.textContent='Apasă din nou ca să ștergi tot';return}
-arm=0;e.target.textContent='Golește tot';S={tf:'30',m:{tax:'30'},r:[]};save();renderAll();$('#msg').textContent='Totul a fost șters.'});
+$('#addR').addEventListener('click',()=>{S.r.push({n:t().newDish,p:'',t:'10',v:'',i:[{n:'',q:'',pr:'',y:'100'}]});save();renderRecipes();renderTop()});
+$('#copy').addEventListener('click',async()=>{const s=JSON.stringify(S);try{await navigator.clipboard.writeText(s);$('#copied').textContent=t().copied}catch(e){$('#imp').value=s;$('#copied').textContent=t().copyFail}});
+$('#doImp').addEventListener('click',()=>{try{const d=JSON.parse($('#imp').value);if(!d.m||!Array.isArray(d.r))throw 0;S=d;save();renderAll();$('#msg').textContent=t().imported}catch(e){$('#msg').textContent=t().badImp}});
+$('#ex').addEventListener('click',()=>{S=EX();save();renderAll();$('#msg').textContent=t().exDone});
+let arm=0;$('#clr').addEventListener('click',e=>{if(!arm){arm=1;e.target.textContent=t().clr2;return}
+arm=0;e.target.textContent=t().clr;S={tf:'30',m:{tax:'30'},r:[]};save();renderAll();$('#msg').textContent=t().cleared});
 
 const views=['analiza','costuri','retete','date'];
 function show(){const h=location.hash.slice(1),v=views.includes(h)?h:'analiza';views.forEach(x=>{$('#'+x).hidden=x!==v;$(`nav a[href="#${x}"]`).setAttribute('aria-current',x===v?'page':'false')})}
